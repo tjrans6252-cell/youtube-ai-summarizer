@@ -1,0 +1,106 @@
+---
+alwaysApply: true
+description: Project-specific rules for YouTube AI Summarizer
+---
+
+# 🎬 Project-Specific Rules
+
+## 🎯 Application Context
+This is a **YouTube AI Summarizer** application that allows users to input YouTube URLs and get AI-generated summaries of video content.
+
+## 🌏 Internationalization
+- **Primary Language**: Korean (한국어)
+- **UI Text**: All user-facing text should be in Korean
+- **Error Messages**: Use Korean for error messages and notifications
+- **Comments**: Use Korean for business logic comments, English for technical comments
+
+## 🎨 Brand Guidelines
+- **Primary Color**: YouTube red `hsl(0 85% 55%)` for main actions
+- **Theme**: Modern, clean, YouTube-inspired design
+- **Icons**: Use Lucide React icons consistently
+- **Gradients**: Use predefined gradient system for visual appeal
+
+## 🔧 Core Features
+- **YouTube URL Input**: Validate and process YouTube URLs
+- **AI Summarization**: Generate summaries using AI (currently simulated)
+- **Loading States**: Show progress indicators during processing
+- **Toast Notifications**: Provide user feedback for all actions
+- **Responsive Design**: Mobile-first approach
+
+## 📱 Component Structure
+- **Hero Section**: [src/components/Hero.tsx](mdc:src/components/Hero.tsx) - Landing page hero
+- **Main Feature**: [src/components/YouTubeSummarizer.tsx](mdc:src/components/YouTubeSummarizer.tsx) - Core functionality
+- **UI Components**: [src/components/ui/](mdc:src/components/ui/) - Reusable shadcn/ui components
+
+## 🎯 State Management Patterns
+```tsx
+// ✅ Correct: Form state with React Hook Form
+const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+
+// ✅ Correct: Loading and error states
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState<string | null>(null);
+
+// ✅ Correct: Toast notifications
+const { toast } = useToast();
+```
+
+## 🔍 Validation Patterns
+```tsx
+// ✅ Correct: YouTube URL validation
+const isValidYouTubeUrl = (url: string) => {
+  const patterns = [
+    /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]+/,
+    /^https?:\/\/youtu\.be\/[\w-]+/,
+    /^https?:\/\/(www\.)?youtube\.com\/embed\/[\w-]+/,
+  ];
+  return patterns.some(pattern => pattern.test(url));
+};
+```
+
+## 🎨 UI Patterns
+```tsx
+// ✅ Correct: Hero button styling
+<Button
+  variant="hero"
+  size="lg"
+  className="w-full h-14 text-lg font-semibold"
+>
+  <Bot className="w-5 h-5 mr-3" />
+  AI로 요약하기
+</Button>
+
+// ✅ Correct: Loading state
+{isLoading ? (
+  <div className="flex items-center gap-2">
+    <Loader2 className="w-4 h-4 animate-spin" />
+    AI가 분석 중...
+  </div>
+) : (
+  <span>AI로 요약하기</span>
+)}
+```
+
+## 🚀 Performance Considerations
+- **Lazy Loading**: Implement for heavy components
+- **Debouncing**: Use for input validation
+- **Memoization**: Apply to expensive calculations
+- **Bundle Size**: Keep components lightweight
+
+## 🔧 Development Workflow
+- **Auto-commits**: All changes are automatically committed via Lovable
+- **Commit Messages**: Use Korean for commit messages
+- **Code Quality**: Follow ESLint rules and TypeScript strict mode
+- **Testing**: Implement unit tests for critical functions
+
+## 📝 Documentation Standards
+- **README**: Keep [README.md](mdc:README.md) updated with setup instructions
+- **Code Comments**: Use Korean for business logic, English for technical details
+- **API Documentation**: Document all API endpoints and data structures
+- **Component Props**: Document all component props with JSDoc
+
+## 🎯 Future Enhancements
+- **API Integration**: Connect to actual YouTube API and AI service
+- **User Authentication**: Add user accounts and history
+- **Advanced Features**: Video chapters, timestamps, key moments
+- **Analytics**: Track usage and performance metrics

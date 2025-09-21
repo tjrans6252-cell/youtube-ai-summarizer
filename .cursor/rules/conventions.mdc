@@ -1,0 +1,109 @@
+---
+globs: *.tsx,*.ts,*.js
+description: Coding conventions and patterns
+---
+
+# 📝 Coding Conventions
+
+## 🏷️ Naming Conventions
+- **Components**: PascalCase (e.g., `YouTubeSummarizer`, `Hero`)
+- **Files**: PascalCase for components, camelCase for utilities
+- **Variables**: camelCase (e.g., `videoUrl`, `isLoading`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `API_BASE_URL`)
+- **Functions**: camelCase with descriptive verbs (e.g., `handleSubmit`, `isValidUrl`)
+
+## 📦 Import Organization
+```tsx
+// 1. React and external libraries
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+// 2. Internal components
+import { Hero } from "@/components/Hero";
+import { YouTubeSummarizer } from "@/components/YouTubeSummarizer";
+
+// 3. Hooks and utilities
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+
+// 4. Icons (last)
+import { Loader2, Play, FileText, Bot } from "lucide-react";
+```
+
+## 🎯 Component Structure
+```tsx
+// 1. Imports
+// 2. Types/Interfaces
+// 3. Component definition
+// 4. Helper functions
+// 5. Event handlers
+// 6. Render
+export const ComponentName = () => {
+  // State declarations
+  const [state, setState] = useState();
+  
+  // Helper functions
+  const helperFunction = () => {};
+  
+  // Event handlers
+  const handleEvent = () => {};
+  
+  // Render
+  return (
+    <div>
+      {/* JSX content */}
+    </div>
+  );
+};
+```
+
+## 🔧 Function Patterns
+- **Event Handlers**: Prefix with `handle` (e.g., `handleSubmit`, `handleClick`)
+- **Validation Functions**: Prefix with `is` or `has` (e.g., `isValidUrl`, `hasError`)
+- **Utility Functions**: Use descriptive names (e.g., `extractVideoId`, `formatDuration`)
+
+## 📋 State Management
+- **Local State**: Use `useState` for component-level state
+- **Form State**: Use React Hook Form with `useForm` hook
+- **Server State**: Use React Query with `useQuery` or `useMutation`
+- **Derived State**: Calculate from existing state rather than storing separately
+
+## 🎨 JSX Guidelines
+- **Self-closing tags**: Use `<Component />` instead of `<Component></Component>`
+- **Props**: Put each prop on a new line for readability
+- **Conditional rendering**: Use `&&` for simple conditions, ternary for if/else
+- **Keys**: Always provide unique keys for list items
+
+## 🔍 Error Handling
+- **Try-catch**: Use for async operations
+- **Toast notifications**: Use `useToast` hook for user feedback
+- **Validation**: Use Zod schemas for form validation
+- **Loading states**: Always show loading indicators for async operations
+
+## 📱 Responsive Patterns
+```tsx
+// ✅ Correct: Mobile-first responsive classes
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+  <div className="text-sm md:text-base lg:text-lg">
+    Content
+  </div>
+</div>
+```
+
+## 🎯 Accessibility Patterns
+- **Semantic HTML**: Use proper HTML elements (`<button>`, `<nav>`, `<main>`)
+- **ARIA labels**: Add descriptive labels for screen readers
+- **Focus management**: Ensure keyboard navigation works
+- **Color contrast**: Test with accessibility tools
+
+## 📝 Comments and Documentation
+- **Component comments**: Describe complex logic and business rules
+- **TODO comments**: Use `// TODO:` for temporary code
+- **JSDoc**: Use for complex functions and utilities
+- **Korean comments**: Use Korean for user-facing text and business logic
+
+## 🚀 Performance Guidelines
+- **Memoization**: Use `useMemo` and `useCallback` sparingly
+- **Lazy loading**: Use `React.lazy` for code splitting
+- **Bundle size**: Keep components small and focused
+- **Re-renders**: Minimize unnecessary re-renders

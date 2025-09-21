@@ -1,0 +1,85 @@
+---
+globs: *.tsx,*.ts,*.css
+description: Styling guidelines and design system
+---
+
+# 🎨 Styling & Design System Rules
+
+## 🎯 Design System
+- **Primary Color**: YouTube red `hsl(0 85% 55%)` for main actions
+- **Theme**: Modern, clean, YouTube-inspired design
+- **Icons**: Use Lucide React icons consistently
+- **Gradients**: Use predefined gradient system for visual appeal
+
+## 🎨 Color Usage
+```tsx
+// ✅ Correct: Use design system colors
+<Button className="bg-primary text-primary-foreground hover:bg-primary-hover">
+  Primary Action
+</Button>
+
+// ✅ Correct: Use semantic color classes
+<div className="bg-background text-foreground">
+  <p className="text-muted-foreground">Secondary text</p>
+</div>
+```
+
+## 📱 Responsive Design
+- **Mobile-first approach**: Start with mobile styles, then add larger breakpoints
+- **Breakpoints**: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280px)
+- **Grid System**: Use CSS Grid and Flexbox for layouts
+
+```tsx
+// ✅ Correct: Mobile-first responsive classes
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+  <div className="text-sm md:text-base lg:text-lg">
+    Responsive content
+  </div>
+</div>
+```
+
+## 🎭 Animation Guidelines
+- **Fade-in**: Use `animate-fade-in` for smooth opacity transitions
+- **Slide-up**: Use `animate-slide-up` for vertical slide animations
+- **Pulse**: Use `animate-pulse-gentle` for subtle attention-grabbing
+- **Hover Effects**: Use `hover:shadow-glow` and `hover:scale-105` for interactive elements
+
+## 🎨 Component Styling Patterns
+```tsx
+// ✅ Correct: Card component styling
+<Card className="p-8 bg-gradient-card shadow-soft border-0">
+  <div className="space-y-6">
+    <h2 className="text-2xl font-bold text-foreground">Title</h2>
+    <p className="text-muted-foreground">Description</p>
+  </div>
+</Card>
+
+// ✅ Correct: Button styling
+<Button
+  variant="hero"
+  size="lg"
+  className="w-full h-14 text-lg font-semibold hover:shadow-glow transition-all duration-300"
+>
+  Action Button
+</Button>
+```
+
+## 🎯 Spacing System
+- **Padding**: Use `p-4`, `p-6`, `p-8` for consistent spacing
+- **Margin**: Use `mb-4`, `mb-6`, `mb-8` for vertical spacing
+- **Gap**: Use `gap-4`, `gap-6`, `gap-8` for flex/grid gaps
+
+## 🎨 Typography
+- **Headings**: Use `text-2xl`, `text-3xl`, `text-4xl` with `font-bold`
+- **Body Text**: Use `text-base` or `text-lg` with `leading-relaxed`
+- **Muted Text**: Use `text-muted-foreground` for secondary information
+
+## 🎭 Visual Effects
+- **Shadows**: Use `shadow-soft` for subtle depth, `shadow-glow` for emphasis
+- **Gradients**: Use `bg-gradient-primary`, `bg-gradient-background`, `bg-gradient-card`
+- **Borders**: Use `border-border/50` for subtle separators
+
+## 🎯 Accessibility
+- **Color Contrast**: Ensure sufficient contrast between text and background
+- **Focus States**: Use `focus-visible:ring-2 focus-visible:ring-ring`
+- **Semantic HTML**: Use proper heading hierarchy and semantic elements

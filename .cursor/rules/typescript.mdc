@@ -1,0 +1,206 @@
+---
+globs: *.ts,*.tsx
+description: TypeScript specific guidelines and patterns
+---
+
+# 🔷 TypeScript Guidelines
+
+## 🎯 Type Definitions
+- **Interfaces**: Use for object shapes and component props
+- **Types**: Use for unions, primitives, and computed types
+- **Enums**: Use for constants with string/number values
+
+```tsx
+// ✅ Correct: Interface for component props
+interface FeedbackFormProps {
+  onFeedbackSubmitted?: () => void
+  className?: string
+}
+
+// ✅ Correct: Type for API responses
+type Feedback = {
+  id: string
+  nickname: string
+  message: string
+  created_at: string
+}
+```
+
+## 🔧 Component Props
+- **Always define prop types** for all components
+- **Use optional props** with `?` when appropriate
+- **Provide default values** for optional props when possible
+
+```tsx
+// ✅ Correct: Well-typed component props
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'outline'
+  size?: 'sm' | 'md' | 'lg'
+  disabled?: boolean
+  onClick?: () => void
+  children: React.ReactNode
+}
+
+export const Button = ({ 
+  variant = 'primary', 
+  size = 'md', 
+  disabled = false,
+  onClick,
+  children 
+}: ButtonProps) => {
+  // Component implementation
+}
+```
+
+## 🎯 State Typing
+- **Explicit state types** when TypeScript can't infer
+- **Use generics** for complex state shapes
+- **Avoid `any`** - use `unknown` or specific types
+
+```tsx
+// ✅ Correct: Explicit state typing
+const [feedback, setFeedback] = useState<Feedback[]>([])
+const [isLoading, setIsLoading] = useState<boolean>(false)
+const [error, setError] = useState<string | null>(null)
+
+// ✅ Correct: Generic state with complex shape
+const [formData, setFormData] = useState<{
+  nickname: string
+  message: string
+}>({
+  nickname: '',
+  message: ''
+})
+```
+
+## 🔧 Function Typing
+- **Explicit return types** for complex functions
+- **Parameter types** for all function parameters
+- **Generic functions** when appropriate
+
+```tsx
+// ✅ Correct: Well-typed function
+const isValidYouTubeUrl = (url: string): boolean => {
+  const patterns = [
+    /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]+/,
+    /^https?:\/\/youtu\.be\/[\w-]+/,
+  ]
+  return patterns.some(pattern => pattern.test(url))
+}
+
+// ✅ Correct: Generic function
+const fetchData = async <T>(url: string): Promise<T> => {
+  const response = await fetch(url)
+  return response.json()
+}
+```
+
+## 🎯 Event Handlers
+- **Use proper event types** from React
+- **Generic event handlers** for reusable components
+
+```tsx
+// ✅ Correct: Proper event handler typing
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setValue(e.target.value)
+}
+
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+  // Handle form submission
+}
+```
+
+## 🔧 API and Data Fetching
+- **Type API responses** explicitly
+- **Use generic types** for reusable API functions
+- **Handle error states** with proper typing
+
+```tsx
+// ✅ Correct: API response typing
+interface ApiResponse<T> {
+  data: T
+  success: boolean
+  message?: string
+}
+
+const fetchFeedback = async (): Promise<Feedback[]> => {
+  const response = await fetch('/api/feedback')
+  const data: ApiResponse<Feedback[]> = await response.json()
+  return data.data
+}
+```
+
+## 🎯 Utility Types
+- **Use built-in utility types** when appropriate
+- **Create custom utility types** for complex patterns
+
+```tsx
+// ✅ Correct: Using utility types
+type FeedbackFormData = Omit<Feedback, 'id' | 'created_at'>
+type PartialFeedback = Partial<Feedback>
+type FeedbackKeys = keyof Feedback
+
+// ✅ Correct: Custom utility type
+type WithId<T> = T & { id: string }
+```
+
+## 🔧 Strict Type Checking
+- **Enable strict mode** in tsconfig.json
+- **Use `as const`** for literal types
+- **Avoid type assertions** unless necessary
+
+```tsx
+// ✅ Correct: Using const assertions
+const variants = ['primary', 'secondary', 'outline'] as const
+type Variant = typeof variants[number]
+
+// ✅ Correct: Proper type assertion when needed
+const element = document.getElementById('my-element') as HTMLInputElement
+```
+
+## 🎯 Error Handling
+- **Type error objects** properly
+- **Use discriminated unions** for different error states
+
+```tsx
+// ✅ Correct: Typed error handling
+interface ApiError {
+  message: string
+  code: string
+  status: number
+}
+
+const handleApiError = (error: unknown): ApiError => {
+  if (error instanceof Error) {
+    return {
+      message: error.message,
+      code: 'UNKNOWN_ERROR',
+      status: 500
+    }
+  }
+  return {
+    message: 'An unknown error occurred',
+    code: 'UNKNOWN_ERROR',
+    status: 500
+  }
+}
+```
+
+## 🔧 Import/Export Types
+- **Export types** alongside components
+- **Use type-only imports** when appropriate
+
+```tsx
+// ✅ Correct: Exporting types
+export interface ComponentProps {
+  // props definition
+}
+
+export const Component = (props: ComponentProps) => {
+  // component implementation
+}
+
+// ✅ Correct: Type-only imports
+import type { ComponentProps } from './Component'
+```

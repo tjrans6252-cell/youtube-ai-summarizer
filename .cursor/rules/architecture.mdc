@@ -1,0 +1,45 @@
+---
+alwaysApply: true
+description: Project architecture and Next.js patterns
+---
+
+# 🏗️ Project Architecture Rules
+
+## 📁 Directory Structure
+- **Components**: Store reusable components in [src/components/](mdc:src/components/)
+  - UI components go in [src/components/ui/](mdc:src/components/ui/) (shadcn/ui)
+  - Feature components go directly in [src/components/](mdc:src/components/)
+- **Pages**: Store page components in [src/pages/](mdc:src/pages/)
+- **Hooks**: Store custom hooks in [src/hooks/](mdc:src/hooks/)
+- **Utils**: Store utility functions in [src/lib/](mdc:src/lib/)
+- **Assets**: Store static assets in [src/assets/](mdc:src/assets/)
+
+## 🔧 Technology Stack
+- **Frontend**: React 18 + TypeScript + Vite
+- **Routing**: React Router DOM v6
+- **State Management**: React Query + React Hook Form
+- **UI Framework**: shadcn/ui + Radix UI + Tailwind CSS
+- **Build Tool**: Vite with SWC plugin
+
+## 📦 Component Architecture
+- Use **functional components** with React Hooks
+- Implement **compound component patterns** for complex UI
+- Use **forwardRef** for components that need DOM access
+- Follow **single responsibility principle** for component design
+- Keep components **small and focused** (max 200 lines)
+
+## 🔄 Data Flow
+- **Local State**: useState for component-level state
+- **Form State**: React Hook Form for form management
+- **Server State**: React Query for API data
+- **Global State**: Context API if needed (avoid Redux for this project)
+
+## 🛣️ Routing Structure
+- Main route: `/` → [src/pages/Index.tsx](mdc:src/pages/Index.tsx)
+- 404 route: `*` → [src/pages/NotFound.tsx](mdc:src/pages/NotFound.tsx)
+- Add new routes in [src/App.tsx](mdc:src/App.tsx) above the catch-all route
+
+## 🎯 Entry Points
+- **Main Entry**: [src/main.tsx](mdc:src/main.tsx)
+- **App Root**: [src/App.tsx](mdc:src/App.tsx)
+- **CSS Entry**: [src/index.css](mdc:src/index.css)
